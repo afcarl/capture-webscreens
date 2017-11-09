@@ -3,6 +3,8 @@
 This is a tool to capture full page pages with selenium in python.
 You just have to prepare for a file of URL list and execute this tool.
 
+A captured file name is same as the line number of a given URL list.
+
 ## Requirements
 
 - Google Chrome
