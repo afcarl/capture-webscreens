@@ -91,19 +91,34 @@ def main(args):
         print("make a directory at %s" % (output))
         os.mkdir(output)
 
-    # capture we
-    num_line = 1
-    driver = webdriver.Chrome('chromedriver')
-    for url in read_lines(url_list):
-        image_path = os.path.join(output, "%06d.png" % (num_line))
-        capture(driver, url, image_path, verbose=args.verbose)
-        num_line += 1
-    driver.quit()
+    # capture webscreens
+    if args.driver == "chromedriver":
+        num_line = 1
+        driver = webdriver.Chrome()
+        for url in read_lines(url_list):
+            image_path = os.path.join(output, "%06d.png" % (num_line))
+            capture(driver, url, image_path, verbose=args.verbose)
+            num_line += 1
+        driver.quit()
+    elif args.driver == "phantomjs":
+        num_line = 1
+        driver = webdriver.PhantomJS()
+        for url in read_lines(url_list):
+            image_path = os.path.join(output, "%06d.png" % (num_line))
+            driver.get(url)
+            driver.save_screenshot(image_path)
+            num_line += 1
+        driver.quit()
+    else:
+        print("invalid selenium driver type: %s" % (args.driver))
+        sys.exit(1)
 
 
 if __name__ == "__main__":
     # parse options
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--driver", type=str, default="chromedriver", help="Selenium driver")
     parser.add_argument(
         "--input", type=str, default=None, help="Path to file which is a list of URLs")
     parser.add_argument(

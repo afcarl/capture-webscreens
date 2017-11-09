@@ -11,11 +11,22 @@ You just have to prepare for a file of URL list and execute this tool.
 
 ## How to Use
 
+- `--driver`: Selenium driver. Supporting `chromedriver` and `pahtomjs` now.
 - `--input`: Path to a file of URL list
 - `--output`: Path to a directory to store captured images
 
 ```
-python capture_screens.py --input test-urls.txt --output ./capture-images/
+# Run on ChromeDriver
+python capture_screens.py  \
+  --driver chromedriver \
+  --input test-urls.txt \
+  --output ./capture-images/
+
+# Run on Phantom JS
+python capture_screens.py  \
+  --driver phantomjs \
+  --input test-urls.txt \
+  --output ./capture-images/
 ```
 
 ## How Setup
@@ -39,6 +50,12 @@ brew install chromedriver
 
 # Start chrome-driver
 brew services start chromedriver
+```
+
+## Install PhantomJS
+
+```
+brew install phantomjs
 ```
 
 # See Also
